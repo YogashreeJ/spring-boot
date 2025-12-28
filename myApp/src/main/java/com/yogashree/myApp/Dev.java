@@ -11,7 +11,13 @@ public class Dev {
     Laptop laptop;
 
     // constructor injection
-    public Dev(Laptop laptop){
+//    public Dev(Laptop laptop){
+//        this.laptop=laptop;
+//    }
+
+    //setter injection
+    @Autowired
+    public void setLaptop(Laptop laptop){
         this.laptop=laptop;
     }
 
