@@ -11,7 +11,7 @@ public class MyAppApplication {
 		// create an object of the IoC which is of type ApplicationContext
 		ApplicationContext context=SpringApplication.run(MyAppApplication.class, args);
 
-		DI obj=context.getBean(DI.class); // Dependency Injection
+		Dev obj=context.getBean(Dev.class); // Dependency Injection
 
 		obj.depInject();
 
