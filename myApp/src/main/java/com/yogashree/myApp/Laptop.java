@@ -4,7 +4,7 @@ package com.yogashree.myApp;
 import org.springframework.stereotype.Component;
 
 @Component
-public class Laptop {
+public class Laptop implements Computer {
 
     public void compile(){
         System.out.println("Compiling...");

@@ -7,22 +7,13 @@ import org.springframework.stereotype.Component;
 @Component  // To notify the spring that I need object of this class
 public class Dev {
 
-    // @Autowired // field injection
-    Laptop laptop;
+    @Autowired // field injection
+    private Computer comp;
 
-    // constructor injection
-//    public Dev(Laptop laptop){
-//        this.laptop=laptop;
-//    }
 
-    //setter injection
-    @Autowired
-    public void setLaptop(Laptop laptop){
-        this.laptop=laptop;
-    }
 
     public void depInject(){
-        laptop.compile();
+        comp.compile();
         System.out.println("This is an example of Dependency Injection");
     }
 }
