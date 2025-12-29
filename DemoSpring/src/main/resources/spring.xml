@@ -5,6 +5,9 @@
        xsi:schemaLocation="
         http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
     <bean id="dev"  class="org.example.Dev">
-
+       <!-- <property name="laptop" ref="lap" />  setter injection-->
+        <constructor-arg ref="lap" /> <!-- constructor injection -->
+    </bean>
+    <bean id="lap"  class="org.example.Laptop">
     </bean>
 </beans>
