@@ -1,0 +1,52 @@
+DTO (Data Transfer Object)
+What is a DTO?
+
+A DTO is a simple object used to transfer data between application layers without exposing internal entities.
+
+Why DTOs are Used
+
+Hide sensitive data
+
+Prevent exposing database structure
+
+Decouple API from database changes
+
+Shape data according to client requirements
+
+Avoid serialization and lazy-loading issues
+
+DTO vs Entity
+
+Entity represents database tables
+
+DTO represents API data
+
+Entities should not be returned directly
+
+DTOs are safe to expose
+
+Types of DTOs
+
+Request DTO – receives data from client
+
+Response DTO – sends data to client
+
+Characteristics of DTOs
+
+No business logic
+
+No database annotations
+
+Contains only required fields
+
+Used mainly in controllers
+
+Benefits
+
+Cleaner API design
+
+Better security
+
+More maintainable code
+
+Easier versioning of APIs
