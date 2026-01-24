@@ -1,0 +1,65 @@
+Validation in Spring Boot
+Overview
+
+Validation is used to ensure that incoming request data is correct, complete, and follows business rules before processing it further.
+In this project, validation is implemented using Jakarta Bean Validation (JSR 380).
+
+Built-in Validation Annotations Used
+
+The following annotations are applied at the model (DTO / entity) layer:
+
+        @NotNull – Field must not be null
+
+        @NotEmpty – Field must not be null or empty (strings, collections)
+
+        @NotBlank – Field must not be null and must contain at least one non-whitespace character
+
+        @Size(min, max) – Validates size of string/collection
+
+        @Min(value) – Minimum numeric value
+
+        @Max(value) – Maximum numeric value
+
+        @Positive – Value must be greater than zero
+
+        @Negative – Value must be less than zero
+
+        @Digits(integer, fraction) – Controls numeric precision
+
+        @Email – Valid email format
+
+        @Pattern(regexp) – Regex-based validation
+
+        @Past – Date must be in the past
+
+        @Future – Date must be in the future
+
+These validations help prevent invalid or malicious input from reaching the service and database layers.
+
+How Validation Works in the Project
+
+        Validation annotations are added to model fields
+
+        @Valid is used in controller methods
+
+        Spring automatically validates the request body
+
+        If validation fails, an exception is thrown
+
+        The exception is handled globally using a centralized exception handler
+
+Custom Validation
+
+Custom validation is implemented when built-in annotations are not sufficient.
+
+Steps Followed:
+
+        Create a custom annotation
+
+        Define validation rules using ConstraintValidator
+
+        Apply the annotation to required fields
+
+        Spring automatically invokes the custom validator during request processing
+
+        This approach keeps validation logic clean, reusable, and maintainable.
