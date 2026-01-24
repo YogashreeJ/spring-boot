@@ -1,0 +1,62 @@
+Global Exception Handling
+Overview
+
+Global Exception Handling is implemented to handle all application-level exceptions in a centralized and consistent manner.
+
+This avoids:
+
+        Repetitive try-catch blocks
+
+        Unclear or inconsistent error responses
+
+        Exposure of internal errors to clients
+
+Implementation
+
+        @ControllerAdvice is used to create a global exception handler
+
+        @ExceptionHandler methods handle specific exception types
+
+Exceptions Handled
+
+        Validation errors (MethodArgumentNotValidException)
+
+        Resource not found exceptions
+
+        Invalid input exceptions
+
+        Generic runtime exceptions
+
+Each exception returns:
+
+        HTTP status code
+
+        Error message
+
+        Timestamp (optional)
+
+        Field-specific error details (for validation failures)
+
+Benefits of Global Exception Handling
+
+        Clean controller code
+
+        Consistent API error responses
+
+        Better debugging and logging
+
+        Improved client experience
+
+Why This Matters
+
+        This project follows industry-standard backend practices:
+
+        Defensive programming
+
+        Input validation
+        
+        Clean error handling
+
+        Scalable and maintainable architecture
+
+        These practices are commonly expected in real-world Spring Boot applications and technical interviews.
