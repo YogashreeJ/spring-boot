@@ -1,12 +1,11 @@
 package com.example.student.model;
 
-
 public class Student {
     private int id;
     private String name;
     private int age;
 
-    public Student() {} // Spring (and Jackson) NEED it to create objects automatically
+    public Student() {}
 
     public Student(int id, String name, int age) {
         this.id = id;
@@ -14,13 +13,7 @@ public class Student {
         this.age = age;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
+    // getters & setters
 
     public int getId() {
         return id;
@@ -36,5 +29,13 @@ public class Student {
 
     public void setAge(int age) {
         this.age = age;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }
