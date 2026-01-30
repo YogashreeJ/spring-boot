@@ -1,0 +1,170 @@
+**JDBC vs Spring JDBC vs ORM vs JPA**
+
+1️⃣ Normal JDBC
+
+Uses 7 steps (load driver, connection, statement, execute, result set, close, etc.)
+
+Mostly written in repository (DAO) layer
+
+High boilerplate code
+
+Error-prone (manual resource management)
+
+📌 Used rarely in modern applications
+
+2️⃣ Spring JDBC
+
+Simplifies normal JDBC
+
+Removes boilerplate (no manual connection / result set handling)
+
+Uses JdbcTemplate
+
+Still SQL-centric
+
+Developer maps rows manually
+
+📌 Better than JDBC, but still not ideal for complex apps
+
+3️⃣ ORM (Object Relational Mapping)
+
+Technique to map:
+
+Class → Table
+
+Fields → Columns
+
+Object → Row
+
+Eliminates manual SQL for CRUD
+
+Works at object level, not table level
+
+📌 ORM is a concept, not a framework
+
+4️⃣ ORM Tool – Hibernate
+
+Hibernate is an ORM implementation
+
+Automatically:
+
+Generates SQL
+
+Maps objects ↔ tables
+
+Manages persistence lifecycle
+
+Most popular ORM tool in Java ecosystem
+
+📌 Hibernate ≠ JPA (important distinction)
+
+5️⃣ JPA (Java Persistence API)
+
+Specification / standard, not an implementation
+
+Defines:
+
+Annotations (@Entity, @Id, etc.)
+
+Rules for ORM behavior
+
+ORM tools (Hibernate, EclipseLink) implement JPA
+
+📌 Advantage:
+
+Easy to switch ORM providers without changing much code
+
+6️⃣ Spring Data JPA
+
+Spring abstraction on top of JPA
+
+Uses ORM tools (usually Hibernate internally)
+
+Eliminates DAO boilerplate
+
+Provides:
+
+JpaRepository
+
+Built-in CRUD methods
+
+Pagination, sorting, query methods
+
+Working with H2 In-Memory Database
+
+H2 is a lightweight in-memory database
+
+Data is stored in RAM, not disk
+
+Data is lost when the application stops
+
+Mainly used for development and testing
+
+📌 Advantage: No external DB setup required
+
+@Entity Annotation
+
+Marks a class as a JPA entity
+
+Each entity maps to a database table
+
+Class name becomes table name by default
+
+Must have:
+
+No-args constructor
+
+Non-final class
+
+📌 Managed by the persistence context
+
+@Id Annotation
+
+Marks the primary key of the entity
+
+Each entity must have exactly one @Id
+
+Used by JPA to uniquely identify records
+
+📌 Often combined with @GeneratedValue
+
+Changing H2 Username & Password (application.properties)
+spring.datasource.url=jdbc:h2:mem:testdb
+spring.datasource.username=admin
+spring.datasource.password=admin123
+
+spring.h2.console.enabled=true
+spring.h2.console.path=/h2-console
+
+
+Default H2 username: sa
+
+Password can be customized
+
+Console helps inspect tables and data
+
+📌 Used only in non-production environments
+
+Built-in Methods from Spring Data JPA
+
+By extending:
+
+JpaRepository<Entity, ID>
+
+
+You automatically get:
+
+save()
+
+findById()
+
+findAll()
+
+deleteById()
+
+existsById()
+
+count()
+
+Pagination & sorting support
+
