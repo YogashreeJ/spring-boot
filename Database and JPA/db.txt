@@ -90,7 +90,7 @@ Built-in CRUD methods
 
 Pagination, sorting, query methods
 
-Working with H2 In-Memory Database
+7. Working with H2 In-Memory Database
 
 H2 is a lightweight in-memory database
 
@@ -102,7 +102,7 @@ Mainly used for development and testing
 
 📌 Advantage: No external DB setup required
 
-@Entity Annotation
+8.@Entity Annotation
 
 Marks a class as a JPA entity
 
@@ -118,7 +118,7 @@ Non-final class
 
 📌 Managed by the persistence context
 
-@Id Annotation
+9.@Id Annotation
 
 Marks the primary key of the entity
 
@@ -128,7 +128,7 @@ Used by JPA to uniquely identify records
 
 📌 Often combined with @GeneratedValue
 
-Changing H2 Username & Password (application.properties)
+10.Changing H2 Username & Password (application.properties)
 spring.datasource.url=jdbc:h2:mem:testdb
 spring.datasource.username=admin
 spring.datasource.password=admin123
@@ -145,7 +145,7 @@ Console helps inspect tables and data
 
 📌 Used only in non-production environments
 
-Built-in Methods from Spring Data JPA
+11.Built-in Methods from Spring Data JPA
 
 By extending:
 
@@ -167,4 +167,154 @@ existsById()
 count()
 
 Pagination & sorting support
+
+12.JPA Relationship -@OneToMany / @ManyToOne
+
+OneToMany → One entity owns many of another
+
+ManyToOne → Many entities belong to one entity
+
+Always know which side owns the relationship (mappedBy)
+
+13.fetch types
+EAGER → loads relationship immediately
+
+LAZY → loads relationship only when accessed
+
+@OneToMany(fetch = FetchType.LAZY)
+private List<Course> courses;
+Why it matters:
+
+LAZY avoids loading everything → better performance
+
+EAGER can trigger N+1 problem if not careful
+Default fetch types: @ManyToOne → EAGER, @OneToMany → LAZY
+
+14.N+1 Problem -Occurs when fetching one entity triggers multiple additional queries.Use JOIN FETCH to prevent N+1 problem
+
+Example:List<Student> students = studentRepository.findAll();
+for (Student s : students) {
+    System.out.println(s.getCourses().size()); // triggers extra query per student!
+}
+ fix: use JOIN Fetch
+ @Query("SELECT s FROM Student s JOIN FETCH s.courses")
+List<Student> findAllWithCourses();
+
+15.Pagination and sorting
+1️⃣ What is Pagination?
+
+Pagination = fetching data in chunks (pages) instead of all at once.
+
+👉 Instead of returning 10,000 rows, you return:
+
+Page 0 → first 10 records
+
+Page 1 → next 10 records
+
+Page 2 → next 10 records
+
+Why pagination is important
+
+🚀 Performance (less DB load)
+
+💾 Less memory usage
+
+🌐 Faster API response
+
+❓ Amazon interview favorite: “How do you handle large datasets?”
+
+2️⃣ What is Sorting?
+
+Sorting = ordering the results based on a field.
+
+Examples:
+
+Sort students by name
+
+Sort by createdAt DESC
+
+Sort by marks ASC
+
+Sorting is usually combined with pagination.
+
+3️⃣ Pageable Object (VERY IMPORTANT)
+
+Pageable is an interface provided by Spring Data.
+
+It contains:
+
+Page number
+
+Page size (records per page)
+
+Sorting info
+
+You don’t create it directly — Spring creates it for you.
+
+Example (Controller)
+@GetMapping("/students")
+public Page<Student> getStudents(Pageable pageable) {
+    return studentRepository.findAll(pageable);
+}
+
+
+Now the client can call:
+
+/students?page=0&size=5&sort=name,asc
+
+4️⃣ PageRequest (Concrete Implementation)
+
+PageRequest is a class that implements Pageable.
+
+Syntax
+PageRequest.of(pageNumber, pageSize)
+
+Example
+Pageable pageable = PageRequest.of(0, 10);
+Page<Student> page = studentRepository.findAll(pageable);
+
+5️⃣ Pagination + Sorting Together
+Pageable pageable = PageRequest.of(
+        0,
+        5,
+        Sort.by("name").ascending()
+);
+
+
+OR descending:
+
+Sort.by("createdAt").descending()
+
+6️⃣ Page vs List (Interview GOLD)
+Page<Student> page = studentRepository.findAll(pageable);
+
+
+Page gives you:
+
+getContent() → actual data
+
+getTotalElements() → total records
+
+getTotalPages() → total pages
+
+isFirst() / isLast()
+
+👉 Amazon likes Page over List
+
+7️⃣ Page Number Gotcha ⚠️
+
+Page numbers are ZERO-based
+
+page = 0 → first page
+
+page = 1 → second page
+
+Many students mess this up in interviews.
+
+8️⃣ One-Line Interview Answer 🧠
+
+Pagination is used to retrieve data in chunks to improve performance, and sorting orders that data based on one or more fields.
+Spring Data JPA provides Pageable and PageRequest to handle both efficiently.
+
+
 
