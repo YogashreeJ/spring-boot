@@ -5,7 +5,7 @@ import jakarta.persistence.*;//jakarta.persistence.* provides JPA annotations us
 @Entity
 public class Course {
 
-    @Id
+    @Id // primary key
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
